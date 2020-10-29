@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhun.travels.mapper.PlaceMapper">
+
+
+    <!--分页查询所有,start 是从第几条开始，rows是 查询多少条-->
+    <select id="findByProId" resultType="place">
+        select * from t_place where provinceid=#{provinceId}
+        order by hotticket
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询总条数-->
+    <select id="findByProIdCounts" resultType="Integer">
+        select count(*) from t_place where provinceid=#{provinceId}
+    </select>
+
+    <!--添加景点-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into t_place values (#{id},#{name},#{picpath},#{hottime},#{hotticket},#{dimticket},#{placedes},#{provinceid});
+    </insert>
+
+    <!--根据ID查询景点信息-->
+    <select id="findOne" resultType="place">
+        select * from t_place where id=#{id}
+    </select>
+
+    <!--删除景点信息-->
+    <delete id="delete">
+        delete from t_place where id=#{id}
+    </delete>
+
+    <!--修改景点信息-->
+    <update id="update">
+        update t_place set
+        name=#{name},
+        picpath=#{picpath},
+        hottime=#{hottime},
+        hotticket=#{hotticket},
+        dimticket=#{dimticket},
+        placedes=#{placedes},
+        provinceid=#{provinceid}
+        where id=#{id}
+    </update>
+</mapper>
